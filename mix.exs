@@ -28,7 +28,8 @@ defmodule KnxAddressImport.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:csv, "~> 1.1.1"}
+      {:csv, "~> 1.1.1"},
+      {:poison, "~> 1.5"}
     ]
   end
 end
