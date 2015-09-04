@@ -1,7 +1,7 @@
 KnxAddressImport
 ================
 
-## Helps you bring over your KNX-group-addresses into your favorite home-automation project
+## A small tool to help you bringing over your KNX-group-addresses into your favorite home-automation project
 
 First, export your group-addresses using ETS into a CSV-file, then feed it to this transformer which converts it into a simple JSON-like list:
 

@@ -14,6 +14,7 @@ defmodule KnxAddressImport do
     File.stream!(filename, [{:encoding, :utf8}]) |>
       CSV.decode(separator: ?\t) |>
       filter(
+        # Use only complete group-addresses
         fn row -> !any?(row, &(&1 == " ")) end
       )
   end
