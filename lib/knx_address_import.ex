@@ -2,6 +2,7 @@ defmodule KnxAddressImport do
   ## Run with KnxAddressImport.start()
 
   import Enum
+  import List
   alias Poison, as: JSON
 
   defmodule Address do
@@ -23,13 +24,21 @@ defmodule KnxAddressImport do
     read_csv("addr.csv") |>
     ## Map to struct
     map(fn(row) -> %Address{id: join(tl(row), "/"), name: hd(row)} end)
+  end
+
+  defp transform(addrLst) do
+    jsonLst = "[" <> join(
+      map(addrLst, fn addr -> JSON.encode!(addr, pretty: true) end), ","
+    ) <> "]"
+
     ## Debug output
-    # >| map(&(IO.inspect(&1)))
+    # |> map(&(IO.inspect(&1)))
+    IO.inspect(jsonLst)
   end
 
-  defp export(addrlist) do
-    File.write("addr.json", map(addrlist, fn addr -> JSON.encode!(addr, pretty: true) end), [:delayed_write])
+  defp export(addresses) do
+    File.write("addr.json", addresses, [:delayed_write])
   end
 
-  def start(), do: import() |> export()
+  def start(), do: import() |> transform() |> export()
 end
